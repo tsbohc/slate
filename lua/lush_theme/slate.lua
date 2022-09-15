@@ -101,12 +101,12 @@ local wh0 = hsluv(0,0,90) -- functions
 -- local wh0 = hsluv(0,0,0) -- functions
 
 
+local blu0 = hsluv(215, 45, 71)
 local ora0 = hsluv(45,80,69)
 -- local gre0 = hsluv(105,45,54)
 local gre0 = hsluv(105,48,56)
 local red0 = hsluv(13,65,50)
 
-local blu0 = hsluv(200, 81, 66)
 local test0 = hsluv(296, 100, 62)
 
 --local bg_red = hsluv(13,25,20) -- default background
@@ -180,6 +180,8 @@ local theme = lush(function()
    -- --LightspeedUniqueChar { bg = test0 },
    -- LightspeedPendingOpArea { fg = red0, bg = gre0, gui = underline },
 
+  VirtColumn { fg = gr3, bg = gr1 },
+
   PounceMatch { fg = wh0, bg = gr5 },
   PounceGap { fg = gr9, bg = gr5 },
   PounceAccept { fg = gr0, bg = ora0 },
@@ -231,7 +233,7 @@ local theme = lush(function()
    TermCursorNC { }, -- cursor in an unfocused terminal
    ErrorMsg     { fg = gr1, bg = red0 }, -- error messages on the command line
    VertSplit    { fg = gr4 }, -- the column separating vertically split windows
-   Folded       { fg = gr5 }, -- line used for closed folds
+   Folded       { fg = gr7, bg = gr2 }, -- line used for closed folds
    FoldColumn   { }, -- 'foldcolumn'
    SignColumn   { }, -- column where |signs| are displayed
    Search       { fg = gr0, bg = ora0 }, -- Last search pattern highlighting (see 'hlsearch').  Also used for similar items that need to stand out.
@@ -247,12 +249,18 @@ local theme = lush(function()
    NonText      { fg = gr5 }, -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
    Normal       { fg = gr9, bg = gr1 }, -- normal text
    NormalFloat  { fg = gr9, bg = gr1 }, -- Normal text in floating windows.
-   FloatBorder  { fg = gr4 },
+   FloatBorder  { fg = gr5 },
+
+   -- CmpPmenuBorder { fg = gr5 }, -- for some reason cmp didn't pick up FloatBorder
+   CmpPmenu { fg = gr8,  bg = gr0 },
+
+
+
    NormalNC     { }, -- normal text in non-current windows
    Pmenu        { fg = gr8, bg = gr0 }, -- Popup menu: normal item.
-   PmenuSel     { bg = gr2 }, -- Popup menu: selected item.
-   PmenuSbar    { bg = gr1 }, -- Popup menu: scrollbar.
-   PmenuThumb   { }, -- Popup menu: Thumb of the scrollbar.
+   PmenuSel     { fg = wh0, bg = gr3 }, -- Popup menu: selected item.
+   PmenuSbar    { fg = red0, bg = gr0 }, -- Popup menu: scrollbar.
+   PmenuThumb   { fg = red0, bg = gr2 }, -- Popup menu: Thumb of the scrollbar.
    Question     { }, -- |hit-enter| prompt and yes/no questions
    QuickFixLine { }, -- Current |quickfix| item in the quickfix window. Combined with |hl-CursorLine| when the cursor is there.
    SpecialKey   { }, -- Unprintable characters: text displayed differently from what it really is.  But not 'listchars' whitespace. |hl-Whitespace|
@@ -260,8 +268,8 @@ local theme = lush(function()
    SpellCap     { }, -- Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
    SpellLocal   { }, -- Word that is recognized by the spellchecker as one that is used in another region. |spell| Combined with the highlighting used otherwise.
    SpellRare    { }, -- Word that is recognized by the spellchecker as one that is hardly ever used.  |spell| Combined with the highlighting used otherwise.
-   StatusLine   { }, -- status line of current window
-   StatusLineNC { }, -- status lines of not-current windows Note: if this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
+   StatusLine   { bg = gr0 }, -- status line of current window
+   StatusLineNC { fg = red0, bg = gr0 }, -- status lines of not-current windows Note: if this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
    TabLine      { bg = gr0 }, -- tab pages line, not active tab page label
    TabLineFill  { bg = gr0 }, -- tab pages line, where there are no labels
    TabLineSel   { bg = gr1 }, -- tab pages line, active tab page label
@@ -301,7 +309,7 @@ local theme = lush(function()
    TSInclude            { };    -- For includes: `#include` in C, `use` or `extern crate` in Rust, or `require` in Lua.
    TSKeyword            { fg = gr7, gui = italic };    -- For keywords that don't fall in previous categories.
    TSKeywordFunction    { TSKeyword };    -- For keywords used to define a fuction.
-   TSLabel              { fg = red0 };    -- For labels: `label:` in C and `:label:` in Lua.
+   TSLabel              { fg = wh0 };    -- For labels: `label:` in C and `:label:` in Lua.
    TSMethod             { fg = wh0 };    -- For method calls and definitions.
    TSNamespace          { };    -- For identifiers referring to modules and namespaces.
    TSNone               { fg = gr9 };    -- TODO: docs
@@ -385,7 +393,22 @@ local theme = lush(function()
 
    Error          { fg = gr1, bg = red0 }, -- (preferred) any erroneous construct
 
-   Todo           { fg = ora0, gui = 'nocombine' }, -- (preferred) anything that needs extra attention; mostly the keywords TODO FIXME and XXX
+               --, gui = 'nocombine'
+   Todo           { fg = blu0, gui = 'italic' }, -- (preferred) anything that needs extra attention; mostly the keywords TODO FIXME and XXX
+   TSNote         { fg = gr9, gui = 'italic' },
+   TSWarning      { Todo },
+   TSDanger       { fg = ora0, gui = 'italic' },
+
+      -- NOTE:
+      -- WARN:
+
+      -- TODO:
+      -- XXX:
+      -- HACK:
+      -- BUG:
+      -- FIXME:
+
+   MyLuaSnipChoice { fg = ora0, bg = gr0 },
 
    -- These groups are for the native LSP client. Some other LSP clients may
    -- use these groups, or use their own. Consult your LSP client's
