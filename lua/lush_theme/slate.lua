@@ -50,71 +50,39 @@ local italic = 'italic'
 local bold = 'bold'
 local underline = 'underline'
 
---{{{
---local gr4 = hsluv(0,0,55) -- conceal
---local gr5 = hsluv(0,0,32) -- comment
---local gr6 = hsluv(0,0,44) -- parens
---local gr7 = hsluv(0,0,22) -- keywords
---local gr8 = hsluv(0,0,64) -- strings
---local gr9 = hsluv(0,0,20) -- default foregroud
---local wh0 = hsluv(0,0,5) -- functions
-
---local gr1 = hsluv(0,0,56) -- default background
---local gr2 = hsluv(0,0,60) -- line highlighting background
---local gr3 = hsluv(0,0,63) -- selection background
---
---local gr4 = hsluv(0,0,55) -- conceal
---local gr5 = hsluv(0,0,40) -- comment
---local gr6 = hsluv(0,0,40) -- parens
---local gr7 = hsluv(0,0,25) -- keywords
---local gr8 = hsluv(0,0,35) -- strings
---local gr9 = hsluv(0,0,20) -- default foregroud
---local wh0 = hsluv(0,0,5) -- functions
-
---local gr1 = hsluv(0,0,55) -- default background
---local gr2 = hsluv(0,0,60) -- line highlighting background
---local gr3 = hsluv(0,0,63) -- selection background
---}}}
-
-local gr0 = hsluv(0,0,9) -- darker background
+local gr0 = hsluv(0,0, 8) -- darker background
 local gr1 = hsluv(0,0,12) -- default background
 local gr2 = hsluv(0,0,14) -- line highlighting background
 local gr3 = hsluv(0,0,17) -- selection background
 local gr4 = hsluv(0,0,21) -- conceal
-local gr5 = hsluv(0,0,29) -- comment
-local gr6 = hsluv(0,0,35) -- parens
+local gr5 = hsluv(0,0,28) -- comment
+local gr6 = hsluv(0,0,36) -- parens
 local gr7 = hsluv(0,0,45) -- keywords
 local gr8 = hsluv(0,0,55) -- strings
-local gr9 = hsluv(0,0,70) -- default foregroud
-local wh0 = hsluv(0,0,90) -- functions
+local gr9 = hsluv(0,0,69) -- default foreground
+local wh0 = hsluv(0,0,79) -- hl default
+local wh1 = hsluv(0,0,90) -- functions
 
--- local gr0 = hsluv(0,0,85) -- darker background
+-- local gr0 = hsluv(0,0,74) -- darker background
 -- local gr1 = hsluv(0,0,80) -- default background
--- local gr2 = hsluv(0,0,85) -- line highlighting background
--- local gr3 = hsluv(0,0,90) -- selection background
+-- local gr2 = hsluv(0,0,75) -- line highlighting background
+-- local gr3 = hsluv(0,0,86) -- selection background
 -- local gr4 = hsluv(0,0,65) -- conceal
 -- local gr5 = hsluv(0,0,55) -- comment
 -- local gr6 = hsluv(0,0,45) -- parens
 -- local gr7 = hsluv(0,0,30) -- keywords
 -- local gr8 = hsluv(0,0,20) -- strings
 -- local gr9 = hsluv(0,0,30) -- default foregroud
--- local wh0 = hsluv(0,0,0) -- functions
+-- local wh0 = hsluv(0,0,10) -- functions
+-- local wh1 = hsluv(0,0,0) -- functions
 
 
-local blu0 = hsluv(215, 45, 71)
-local ora0 = hsluv(45,80,69)
--- local gre0 = hsluv(105,45,54)
-local gre0 = hsluv(105,48,56)
-local red0 = hsluv(13,65,50)
-
+local blu0 = hsluv(215, 37, 71)
+local ora0 = hsluv( 45, 80, 71)
+local gre0 = hsluv(105, 48, 56)
+local red0 = hsluv(13,  65, 50)
 local test0 = hsluv(296, 100, 62)
 
---local bg_red = hsluv(13,25,20) -- default background
---local bg_gre = hsluv(105,25,20) -- default background
--- local bg_gre = hsluv(105,37,56) -- default background
-
--- LSP/Linters mistakenly show `undefined global` errors in the spec, they may
--- support an annotation like the following. Consult your server documentation.
 ---@diagnostic disable: undefined-global
 local theme = lush(function()
   return {
@@ -133,8 +101,8 @@ local theme = lush(function()
         -- color10 = wh0.li(4).hex,
         -- color2 = gre0.hex,
         -- color10 = gre0.hex,
-        color2 = wh0.hex,
-        color10 = wh0.hex,
+        color2 = wh1.hex,
+        color10 = wh1.hex,
         -- ---- yellow
         color3 = gr9.hex,
         color11 = gr9.li(20).hex,
@@ -146,16 +114,16 @@ local theme = lush(function()
         color13 = gr5.hex,
         -- ---- cyan
         color6 = gr9.hex,
-        color14 = wh0.hex,
+        color14 = wh1.hex,
         -- -- white
         color7 = gr6.hex,
-        color15 = wh0.hex,
+        color15 = wh1.hex,
       }
    },
    -- help ft
    helpExample { fg = gr7, gui = italic },
    helpSectionDelim { fg = gr5 },
-   helpHyperTextEntry { fg = wh0, gui = italic },
+   helpHyperTextEntry { fg = wh1, gui = italic },
    helpCommand { fg = gr7 },
    helpSpecial { fg = gr8 },
    helpUrl { fg = gr8, gui = underline },
@@ -182,10 +150,12 @@ local theme = lush(function()
 
   VirtColumn { fg = gr3, bg = gr1 },
 
-  PounceMatch { fg = wh0, bg = gr5 },
-  PounceGap { fg = gr9, bg = gr5 },
+  PounceMatch { fg = wh1, bg = gr3 },
+  PounceGap { fg = gr9, bg = gr4 },
   PounceAccept { fg = gr0, bg = ora0 },
   PounceAcceptBest { fg = gr0, bg = red0 },
+
+   Hlargs { fg = wh0 },
 
    GitSignsAdd  { fg = gr6 },
    GitSignsDelete  { fg = gr6 },
@@ -205,20 +175,20 @@ local theme = lush(function()
    TelescopePromptCounter { fg = gr5 },
    TelescopeTitle { fg = gr7 },
 
-   TelescopeSelection { fg = wh0, bg = gr2 },
-   TelescopeSelectionCaret { fg = wh0, bg = gr2 },
+   TelescopeSelection { fg = wh1, bg = gr2 },
+   TelescopeSelectionCaret { fg = wh1, bg = gr2 },
 
-   TelescopeMatching { fg = wh0 },
+   TelescopeMatching { fg = wh1 },
 
    -- .snippets hl
    snippet            { fg = gr7 },
-   multiSnipText      { fg = wh0 },
+   multiSnipText      { fg = wh1 },
    placeHolder        { fg = gr8, bg = gr2 },
 
    Comment      { fg = gr5, gui = italic }, -- any comment
    ColorColumn  { }, -- used for the columns set with 'colorcolumn'
    Conceal      { fg = gr4 }, -- placeholder characters substituted for concealed text (see 'conceallevel')
-   Cursor       { bg = wh0 }, -- character under the cursor
+   Cursor       { bg = wh1 }, -- character under the cursor
    lCursor      { }, -- the character under the cursor when |language-mapping| is used (see 'guicursor')
    CursorIM     { }, -- like Cursor, but used when in IME mode |CursorIM|
    CursorColumn { }, -- Screen-column at the cursor, when 'cursorcolumn' is set.
@@ -258,7 +228,7 @@ local theme = lush(function()
 
    NormalNC     { }, -- normal text in non-current windows
    Pmenu        { fg = gr8, bg = gr0 }, -- Popup menu: normal item.
-   PmenuSel     { fg = wh0, bg = gr3 }, -- Popup menu: selected item.
+   PmenuSel     { fg = wh1, bg = gr3 }, -- Popup menu: selected item.
    PmenuSbar    { fg = red0, bg = gr0 }, -- Popup menu: scrollbar.
    PmenuThumb   { fg = red0, bg = gr2 }, -- Popup menu: Thumb of the scrollbar.
    Question     { }, -- |hit-enter| prompt and yes/no questions
@@ -281,7 +251,7 @@ local theme = lush(function()
    WildMenu     { }, -- current match in 'wildmenu' completion
 
    SymbolsOutlineConnector { Conceal },
-   FocusedSymbol { fg = wh0 },
+   FocusedSymbol { fg = wh1 },
 
    -- These groups are for the neovim tree-sitter highlights.
    -- As of writing, tree-sitter support is a WIP, group names may change.
@@ -303,18 +273,19 @@ local theme = lush(function()
    TSException          { };    -- For exception related keywords.
    TSField              { };    -- For fields.
    TSFloat              { };    -- For floats.
-   TSFunction           { fg = wh0 };    -- For function (calls and definitions).
+   TSFunction           { fg = wh1 };    -- For function (calls and definitions).
    TSFuncBuiltin        { };    -- For builtin functions: `table.insert` in Lua.
    TSFuncMacro          { };    -- For macro defined fuctions (calls and definitions): each `macro_rules` in Rust.
    TSInclude            { };    -- For includes: `#include` in C, `use` or `extern crate` in Rust, or `require` in Lua.
    TSKeyword            { fg = gr7, gui = italic };    -- For keywords that don't fall in previous categories.
    TSKeywordFunction    { TSKeyword };    -- For keywords used to define a fuction.
-   TSLabel              { fg = wh0 };    -- For labels: `label:` in C and `:label:` in Lua.
-   TSMethod             { fg = wh0 };    -- For method calls and definitions.
+   TSLabel              { fg = wh1 };    -- For labels: `label:` in C and `:label:` in Lua.
+   TSMethod             { fg = wh1 };    -- For method calls and definitions.
    TSNamespace          { };    -- For identifiers referring to modules and namespaces.
    TSNone               { fg = gr9 };    -- TODO: docs
    TSNumber             { };    -- For all numbers
-   TSOperator           { fg = wh0 };    -- For any operator: `+`, but also `->` and `*` in C.
+   TSKeywordOperator    { fg = gr7, gui = italic }; -- and, or...
+   TSOperator           { fg = gr7 };    -- For any operator: `+`, but also `->` and `*` in C.
    TSParameter          { };    -- For parameters of a function.
    TSParameterReference { };    -- For references to parameters of a function.
    TSProperty           { };    -- Same as `TSField`.
