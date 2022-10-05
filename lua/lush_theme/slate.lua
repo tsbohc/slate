@@ -150,10 +150,10 @@ local theme = lush(function()
 
   VirtColumn { fg = gr3, bg = gr1 },
 
-  PounceMatch { fg = wh1, bg = gr3 },
-  PounceGap { fg = gr9, bg = gr4 },
-  PounceAccept { fg = gr0, bg = ora0 },
-  PounceAcceptBest { fg = gr0, bg = red0 },
+  PounceMatch { fg = wh1, bg = gr4 },
+  PounceGap { fg = wh1, bg = gr4 },
+  PounceAccept { fg = gr0, bg = blu0.da(15) },
+  PounceAcceptBest { fg = gr0, bg = ora0 },
 
    Hlargs { fg = wh0 },
 
